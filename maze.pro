@@ -17,12 +17,17 @@ SOURCES += main.cpp\
     mazeview.cpp \
     role.cpp \
     obstacle.cpp \
-    wall.cpp
+    wall.cpp \
+    autofindpath.cpp
 
 HEADERS  += mainwindow.h \
     mazeview.h \
     role.h \
     obstacle.h \
-    wall.h
+    wall.h \
+    autofindpath.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    qrc.qrc
