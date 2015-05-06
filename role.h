@@ -12,8 +12,9 @@ public:
     explicit Role(QGraphicsItem *parent = 0);
     ~Role();
     void setEyeDirection(qreal d) {eyeDirection_ = d;}
-protected:
+
     QRectF boundingRect() const;
+protected:
     void paint(QPainter *painter,
                               const QStyleOptionGraphicsItem *option,
                               QWidget *widget);

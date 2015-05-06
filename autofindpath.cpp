@@ -1,6 +1,8 @@
 ﻿#include "autofindpath.h"
 #include <QtMath>
 #include <QDebug>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 QMap<Role*,AutoFindPath*> AutoFindPath::rolePathMap_;
 
 AutoFindPath::AutoFindPath(QObject *parent) : QObject(parent)
@@ -100,6 +102,13 @@ void AutoFindPath::onTimeout()
     role_->setPos(tempPointF_);
 //    role_->setEyeDirection();
 
-    role_->update();
+//    role_->update();
+//    QRectF rect = role_->mapRectToScene(role_->boundingRect());
+    QPointF pos = role_->mapToScene(role_->pos());
+    QRectF rect;
+    rect.setTopLeft(pos);
+    rect.setWidth(20);
+    rect.setHeight(20);
+    role_->scene()->invalidate();
 }
 
