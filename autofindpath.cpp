@@ -39,6 +39,10 @@ void AutoFindPath::start()
 void AutoFindPath::stop()
 {
     timer_.stop();
+    if (rolePathMap_.contains(role_)) {
+        rolePathMap_.remove(role_);
+    }
+    this->deleteLater();
 }
 
 void AutoFindPath::FindPath(Role *role, QPointF from, QPointF to)

@@ -5,12 +5,14 @@
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QPainter>
+#include <QUuid>
 class Role : public QGraphicsItem
 {
 
 public:
     explicit Role(QGraphicsItem *parent = 0);
     ~Role();
+    QString token() const {return token_;}
     void setEyeDirection(qreal d) {eyeDirection_ = d;}
 
     QRectF boundingRect() const;
@@ -21,6 +23,7 @@ protected:
 private:
     QColor color_;
     qreal eyeDirection_;
+    QString token_;
 //    void moveToPoint();
 };
 

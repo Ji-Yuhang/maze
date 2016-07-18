@@ -7,7 +7,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+QT       += network
 TARGET = maze
 TEMPLATE = app
 
@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     role.cpp \
     obstacle.cpp \
     wall.cpp \
-    autofindpath.cpp
+    autofindpath.cpp \
+    bullet.cpp \
+    server.cpp
 
 HEADERS  += mainwindow.h \
     mazeview.h \
     role.h \
     obstacle.h \
     wall.h \
-    autofindpath.h
+    autofindpath.h \
+    bullet.h \
+    server.h
 
 FORMS    += mainwindow.ui
 
