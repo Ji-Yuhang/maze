@@ -9,7 +9,7 @@ AutoFindPath::AutoFindPath(QObject *parent) : QObject(parent)
 {
     pace_ = 5;
     radius_ = pace_ - 1;
-    timer_.setInterval(20);
+    timer_.setInterval(40);
     connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimeout()));
 
 }
@@ -99,7 +99,7 @@ void AutoFindPath::onTimeout()
 
     qreal ration = qAtan2(ydif, xdif);
     qreal degree = qRadiansToDegrees(ration);
-    qDebug() << ration << degree;
+//    qDebug() << ration << degree;
     role_->setRotation(degree + 90);
 //    setRotation(rotation() + dx);
 

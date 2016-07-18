@@ -7,6 +7,7 @@
 #include "autofindpath.h"
 #include <QPropertyAnimation>
 #include <QDataStream>
+#include <QDateTime>
 MazeView::MazeView(QGraphicsView *parent) : QGraphicsView(parent),socket_(new QTcpSocket)
 {
     setRenderHint(QPainter::Antialiasing);
@@ -23,14 +24,18 @@ MazeView::MazeView(QGraphicsView *parent) : QGraphicsView(parent),socket_(new QT
 //    QGraphicsTextItem* textItem = scene_.addText("Game Begin");
     Role* role = new Role;
     scene_.addItem(role);
+    ms_.setZValue(8);
+    ms_.setPos(mapToScene(0,0));
+    scene_.addItem(&ms_);
     roleList_.append(role);
 //    moveTimer_.setInterval(100);
 //    connect(&moveTimer_, SIGNAL(timeout()), this, SLOT(onMoveTimerTimeout()));
 
-
+    connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimeout()));
     socket_->connectToHost("127.0.0.1",4321);
     socket_->waitForConnected();
     connect(socket_, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    timer_.start(1000);
 }
 
 MazeView::~MazeView()
@@ -50,14 +55,14 @@ void MazeView::onReadyRead()
     QDataStream stream(&block, QIODevice::ReadOnly);
     QString type;
     QString who;
-    QMap<QString,QPointF> data;
+    QMap<QString,QVariant> data;
     stream >> type >> who >> data;
     qDebug() << "view receive: "<< type << who << data;
 
 //    QString type = data["type"];
     if (type == "move") {
-        QPointF from = data["from"];
-        QPointF to = data["to"];
+        QPointF from = data["from"].toPointF();
+        QPointF to = data["to"].toPointF();
 
 
         Role* role = findRole(who);
@@ -70,7 +75,29 @@ void MazeView::onReadyRead()
 
             AutoFindPath::FindPath(role,from,to);
         }
+    } else if (type == "heart") {
+        QDateTime time = data["now"].toDateTime();
+        QDateTime now = QDateTime::currentDateTime();
+        qint64 ms = time.msecsTo(now);
+        ms_.setText(QString("%1 ms").arg(ms));
+        ms_.setPos(mapToScene(0,0));
+        qDebug() << "ms : " << now << " - "<<time <<" = "<< ms;
+
     }
+
+}
+
+void MazeView::onTimeout()
+{
+    QByteArray block;
+    QDataStream s(&block, QIODevice::WriteOnly);
+    Role* role = roleList_.first();
+
+    QMap<QString, QVariant> data;
+    data["now"] = QDateTime::currentDateTime();
+    s << QString("heart") << role->token()<<data;
+    socket_->write(block);
+
 }
 
 void MazeView::drawForeground(QPainter *painter, const QRectF &rect)
@@ -188,7 +215,7 @@ void MazeView::mousePressEvent(QMouseEvent *event)
 
         QByteArray sendBlock;
         QDataStream os(&sendBlock, QIODevice::WriteOnly);
-        QMap<QString, QPointF> data;
+        QMap<QString, QVariant> data;
         data["from"] = role->pos();
         data["to"] = scenePos;
 

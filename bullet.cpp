@@ -3,6 +3,8 @@
 Bullet::Bullet()
 {
     freeze_ = false;
+    setZValue(8);
+
 }
 
 void Bullet::setFreeze(bool freeze)

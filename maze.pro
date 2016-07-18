@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     wall.cpp \
     autofindpath.cpp \
     bullet.cpp \
-    server.cpp
+    server.cpp \
+    login.cpp
 
 HEADERS  += mainwindow.h \
     mazeview.h \
@@ -29,9 +30,11 @@ HEADERS  += mainwindow.h \
     wall.h \
     autofindpath.h \
     bullet.h \
-    server.h
+    server.h \
+    login.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    login.ui
 
 RESOURCES += \
     qrc.qrc

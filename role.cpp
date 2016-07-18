@@ -5,6 +5,7 @@ Role::Role(QGraphicsItem *parent) : QGraphicsItem(parent)
     color_ = QColor(qrand() % 256, qrand() % 256, qrand() % 256);
 
     token_ = QUuid::createUuid().toString();
+    setZValue(10);
 }
 
 Role::~Role()

@@ -10,7 +10,7 @@
 #include "role.h"
 #include "bullet.h"
 #include <QTcpSocket>
-
+#include <QGraphicsSimpleTextItem>
 class MazeView : public QGraphicsView
 {
     Q_OBJECT
@@ -24,6 +24,7 @@ public slots:
 private slots:
     void onMoveTimerTimeout();
     void onReadyRead();
+    void onTimeout();
 protected:
     void drawForeground(QPainter *painter, const QRectF &rect);
     void keyPressEvent(QKeyEvent *event);
@@ -32,12 +33,15 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event){}
     void mouseReleaseEvent(QMouseEvent *event){}
+
 private:
     Role* findRole(const QString& token);
 private:
     QGraphicsScene scene_;
     QList<Role*> roleList_;
     QTcpSocket* socket_;
+    QTimer timer_;
+    QGraphicsSimpleTextItem ms_;
 //    QTimer moveTimer_;
 //    QPointF moveRolePointF_;
 };

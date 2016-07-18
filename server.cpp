@@ -36,14 +36,14 @@ void Server::onReadyRead()
     QDataStream stream(&block,QIODevice::ReadOnly);
     QString type;
     QString who;
-    QMap<QString,QPointF> data;
+    QMap<QString,QVariant> data;
     stream >> type >> who >> data;
-    qDebug() << "server receive: "<< block<< type << who << data;
+    qDebug() << "server receive: "<< type << who << data;
 
 //    QString type = data["type"];
     if (type == "move") {
-        QPointF from = data["from"];
-        QPointF to = data["to"];
+        QPointF from = data["from"].toPointF();
+        QPointF to = data["to"].toPointF();
 
         QByteArray sendBlock;
         QDataStream os(&sendBlock, QIODevice::WriteOnly);
@@ -51,6 +51,8 @@ void Server::onReadyRead()
 
         qDebug() << "server send: "<< type << who << data;
         send(sendBlock);
+    } else if (type == "heart") {
+        send(block);
     }
 
 }
