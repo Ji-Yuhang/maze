@@ -32,10 +32,7 @@ MazeView::MazeView(QGraphicsView *parent) : QGraphicsView(parent),socket_(new QT
 //    connect(&moveTimer_, SIGNAL(timeout()), this, SLOT(onMoveTimerTimeout()));
 
     connect(&timer_, SIGNAL(timeout()), this, SLOT(onTimeout()));
-    socket_->connectToHost("127.0.0.1",4321);
-    socket_->waitForConnected();
-    connect(socket_, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    timer_.start(1000);
+
 }
 
 MazeView::~MazeView()
@@ -43,6 +40,14 @@ MazeView::~MazeView()
 
 }
 
+void MazeView::setServerIp(QHostAddress address, qint16 port)
+{
+//    mazeview_->setServerIp(address, port);
+    socket_->connectToHost(address,port);
+    socket_->waitForConnected();
+    connect(socket_, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    timer_.start(1000);
+}
 void MazeView::onMoveTimerTimeout()
 {
 

@@ -11,6 +11,7 @@
 #include "bullet.h"
 #include <QTcpSocket>
 #include <QGraphicsSimpleTextItem>
+#include <QHostAddress>
 class MazeView : public QGraphicsView
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ public:
     explicit MazeView(QGraphicsView *parent = 0);
     ~MazeView();
 
+    void setServerIp(QHostAddress address, qint16 port);
 signals:
 
 public slots:

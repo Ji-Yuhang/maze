@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QUdpSocket>
 #include <QNetworkInterface>
+#include "mainwindow.h"
 namespace Ui {
 class Login;
 }
@@ -22,11 +23,16 @@ private slots:
     void on_create_clicked();
 
     void onRead();
+    void onJoin();
 
 private:
     Ui::Login *ui;
     QUdpSocket socket_;
     QHostAddress getIP();
+    QMap<quint32, QHostAddress> knownHosts_;
+    QHostAddress serverIp_;
+    MainWindow*  main_;
+
 };
 
 #endif // LOGIN_H

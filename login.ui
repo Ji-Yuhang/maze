@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>小牛对战平台</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -46,7 +46,38 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTableWidget" name="tableWidget"/>
+    <widget class="QTableWidget" name="tableWidget">
+     <column>
+      <property name="text">
+       <string>主机名</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>游戏</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>人数</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>加密</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>延迟</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>加入</string>
+      </property>
+     </column>
+    </widget>
    </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">

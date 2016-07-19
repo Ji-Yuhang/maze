@@ -15,3 +15,8 @@ MainWindow::~MainWindow()
     delete ui;
     delete mazeview_;
 }
+
+void MainWindow::setServerIp(QHostAddress address, qint16 port)
+{
+    mazeview_->setServerIp(address, port);
+}
