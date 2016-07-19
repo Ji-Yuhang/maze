@@ -1,0 +1,5 @@
+source 'https://gems.ruby-china.org'
+
+gem 'eventmachine'
+gem 'awesome_print'
+
